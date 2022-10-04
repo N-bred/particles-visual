@@ -20,7 +20,7 @@ const yAccelerationElement = document.querySelector('#yAccelerationInput')
 const width = window.innerWidth
 const height = window.innerHeight
 const circles = []
-
+let newCircles = []
 let numberOfCircles = 200
 let acceleration = 1
 let gAcceleration = 0.98 * 2
@@ -31,6 +31,8 @@ let maxPoint
 let minPoint
 let maxDistance = 100
 let maxRadius = 5
+
+let isPaused = false
 
 // Auxiliary Functions
 
@@ -128,7 +130,8 @@ function setup() {
 }
 
 function draw() {
-  const newCircles = moveCircles([...circles])
+  if (isPaused) return requestAnimationFrame(draw)
+  newCircles = moveCircles([...circles])
 
   for (let circle of newCircles) {
     drawCircle(circle)
@@ -154,12 +157,46 @@ function draw() {
 setup()
 drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
 
-requestAnimationFrame(draw)
+let animationRequest = requestAnimationFrame(draw)
 
-// Event Listeners
+// Event Listeners and UI
 
 window.addEventListener('keyup', (e) => {
   if (e.key === 'm') {
     menuElement.classList.toggle('active')
   }
+  if (e.key === 'p') {
+    isPaused = !isPaused
+  }
+
+  if (e.key === 'r') {
+    drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
+  }
+})
+
+$(backgroundElement).spectrum({
+  type: 'component',
+  showAlpha: true,
+  change: (color) => {
+    backgroundColor = color.toRgbString()
+    drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
+  },
+})
+
+$(particleColorElement).spectrum({
+  type: 'component',
+  showAlpha: true,
+  change: (color) => {
+    for (let i = 0; i < newCircles.length; ++i) {
+      newCircles[i].color = color.toRgbString()
+    }
+  },
+})
+
+$(lineColorElement).spectrum({
+  type: 'component',
+  showAlpha: true,
+  change: (color) => {
+    lineColor = color.toRgbString()
+  },
 })

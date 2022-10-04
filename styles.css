@@ -31,8 +31,13 @@ body {
   margin: 1rem 0;
 }
 
+.menuSection .sp-colorize-container.sp-add-on {
+  width: 7rem;
+}
+
 .menuSection input {
   width: 100%;
+  padding: 1rem 1.5rem;
 }
 
 .menu.active {
