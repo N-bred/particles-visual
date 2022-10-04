@@ -7,21 +7,20 @@ const ctx = canvas.getContext('2d')
 
 // Constants and Variables
 
-const width = Number(canvas.dataset.width)
-const height = Number(canvas.dataset.height)
+const width = window.innerWidth
+const height = window.innerHeight
 const circles = []
-const numberOfCircles = 200
-const acceleration = 1
+const numberOfCircles = 50
+const acceleration = 0.3
 const gAcceleration = 0.98 * 2
-const possibleColors = ['rgba(83,0,162,1)', 'green']
 
-let circleColor = 'rgba(255,255,255,.5)'
-let lineColor = 'rgba(0,0,0,.1)'
-let backgroundColor = 'white'
+let circleColor = 'green'
+let lineColor = 'white'
+let backgroundColor = 'black'
 let maxPoint
 let minPoint
-let maxDistance = 100
-let maxRadius = 5
+let maxDistance = 200
+let maxRadius = 20
 
 // Auxiliary Functions
 
@@ -119,8 +118,8 @@ function setup() {
 }
 
 function draw() {
-  //   clear()
-  //   drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
+  clear()
+  drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
 
   const newCircles = moveCircles([...circles])
 
@@ -141,11 +140,9 @@ function draw() {
     }
   }
 
-  //   requestAnimationFrame(draw)
+  requestAnimationFrame(draw)
 }
 
 // Function calls
 setup()
-drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
-
 requestAnimationFrame(draw)
