@@ -9,6 +9,43 @@
     <script src="./app.js" defer></script>
   </head>
   <body>
+    <div class="menu" id="menu">
+      <form id="propertiesform">
+        <div class="menuSection">
+          <label for="background">Set Background color: </label>
+          <input type="color" name="background" id="backgroundColorInput" />
+        </div>
+        <div class="menuSection">
+          <label for="particleColor">Set Particle color: </label>
+          <input type="color" name="particleColor" id="particleColorInput" />
+        </div>
+        <div class="menuSection">
+          <label for="lineColor">Set Line color: </label>
+          <input type="color" name="lineColor" id="lineColorInput" />
+        </div>
+        <h2>Physics Properties</h2>
+        <div class="menuSection">
+          <label for="particles">Set Number of Particles: </label>
+          <input type="number" name="particles" id="particlesInput" />
+        </div>
+        <div class="menuSection">
+          <label for="distance">Set Distance: </label>
+          <input type="number" name="distance" id="distanceInput" />
+        </div>
+        <div class="menuSection">
+          <label for="radius">Set Max radius for particles: </label>
+          <input type="number" name="radius" id="radiusInput" />
+        </div>
+        <div class="menuSection">
+          <label for="xAcceleration">Set Acceleration for X: </label>
+          <input type="number" name="xAcceleration" id="xAccelerationInput" />
+        </div>
+        <div class="menuSection">
+          <label for="yAcceleration">Set Acceleration for Y: </label>
+          <input type="number" name="yAcceleration" id="yAccelerationInput" />
+        </div>
+      </form>
+    </div>
     <canvas class="canvas" id="canvas" data-width="1920" data-height="1080"></canvas>
   </body>
 </html>

@@ -7,7 +7,34 @@
 }
 
 html,
-html {
+body {
   font-size: 65.5%;
   overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.menu {
+  padding: 2.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  position: absolute;
+  font-size: 1.6rem;
+  display: none;
+}
+
+.menuSection {
+  margin: 2rem 0;
+}
+
+.menuSection label {
+  display: block;
+  margin: 1rem 0;
+}
+
+.menuSection input {
+  width: 100%;
+}
+
+.menu.active {
+  display: block;
 }

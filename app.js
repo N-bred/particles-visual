@@ -5,16 +5,25 @@ const canvas = document.querySelector('#canvas')
 /** @type {CanvasRenderingContext2D} */
 const ctx = canvas.getContext('2d')
 
+const menuElement = document.querySelector('#menu')
+const backgroundElement = document.querySelector('#backgroundColorInput')
+const particleColorElement = document.querySelector('#particleColorInput')
+const lineColorElement = document.querySelector('#lineColorInput')
+const particlesElement = document.querySelector('#particlesInput')
+const distanceElement = document.querySelector('#distanceInput')
+const radiusElement = document.querySelector('#radiusInput')
+const xAccelerationElement = document.querySelector('#xAccelerationInput')
+const yAccelerationElement = document.querySelector('#yAccelerationInput')
+
 // Constants and Variables
 
-const width = Number(canvas.dataset.width)
-const height = Number(canvas.dataset.height)
+const width = window.innerWidth
+const height = window.innerHeight
 const circles = []
-const numberOfCircles = 200
-const acceleration = 1
-const gAcceleration = 0.98 * 2
-const possibleColors = ['rgba(83,0,162,1)', 'green']
 
+let numberOfCircles = 200
+let acceleration = 1
+let gAcceleration = 0.98 * 2
 let circleColor = 'rgba(255,255,255,.5)'
 let lineColor = 'rgba(0,0,0,.1)'
 let backgroundColor = 'white'
@@ -119,9 +128,6 @@ function setup() {
 }
 
 function draw() {
-  //   clear()
-  //   drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
-
   const newCircles = moveCircles([...circles])
 
   for (let circle of newCircles) {
@@ -149,3 +155,11 @@ setup()
 drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
 
 requestAnimationFrame(draw)
+
+// Event Listeners
+
+window.addEventListener('keyup', (e) => {
+  if (e.key === 'm') {
+    menuElement.classList.toggle('active')
+  }
+})
