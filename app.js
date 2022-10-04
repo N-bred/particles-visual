@@ -141,7 +141,7 @@ function draw() {
     }
   }
 
-  //   requestAnimationFrame(draw)
+  requestAnimationFrame(draw)
 }
 
 // Function calls
