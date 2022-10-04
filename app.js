@@ -15,23 +15,31 @@ const radiusElement = document.querySelector('#radiusInput')
 const xAccelerationElement = document.querySelector('#xAccelerationInput')
 const yAccelerationElement = document.querySelector('#yAccelerationInput')
 
+particleColorElement.value = 'green'
+lineColorElement.value = 'rgba(0,0,0,.1)'
+backgroundElement.value = 'white'
+particlesElement.value = 200
+distanceElement.value = 100
+radiusElement.value = 5
+xAccelerationElement.value = 1
+yAccelerationElement.value = 0.98
+
 // Constants and Variables
 
 const width = window.innerWidth
 const height = window.innerHeight
-const circles = []
+let circles = []
 let newCircles = []
-let numberOfCircles = 200
-let acceleration = 1
-let gAcceleration = 0.98 * 2
-let circleColor = 'rgba(255,255,255,.5)'
-let lineColor = 'rgba(0,0,0,.1)'
-let backgroundColor = 'white'
+let numberOfCircles = particlesElement.value
+let acceleration = xAccelerationElement.value
+let gAcceleration = yAccelerationElement.value * 2
+let circleColor = particleColorElement.value
+let lineColor = lineColorElement.value
+let backgroundColor = backgroundElement.value
 let maxPoint
 let minPoint
-let maxDistance = 100
-let maxRadius = 5
-
+let maxDistance = distanceElement.value
+let maxRadius = radiusElement.value
 let isPaused = false
 
 // Auxiliary Functions
@@ -118,11 +126,22 @@ function moveCircles(circles) {
   return newCircles
 }
 
-function setup() {
-  canvas.width = width
-  canvas.height = height
-  maxPoint = makePoint(width, height)
+function setupWindow() {
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+  maxPoint = makePoint(window.innerWidth, window.innerHeight)
   minPoint = makePoint(0, 0)
+}
+
+function reset() {
+  isPaused = true
+  drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
+  circles = []
+  isPaused = false
+}
+
+function setup() {
+  reset()
 
   for (let i = 0; i < numberOfCircles; ++i) {
     circles.push(createCircle({ radius: maxRadius, point: maxPoint, color: circleColor, id: i }))
@@ -154,9 +173,9 @@ function draw() {
 }
 
 // Function calls
+setupWindow()
 setup()
 drawRect({ point1: minPoint, point2: maxPoint, color: backgroundColor })
-
 let animationRequest = requestAnimationFrame(draw)
 
 // Event Listeners and UI
@@ -187,6 +206,7 @@ $(particleColorElement).spectrum({
   type: 'component',
   showAlpha: true,
   change: (color) => {
+    circleColor = color.toRgbString()
     for (let i = 0; i < newCircles.length; ++i) {
       newCircles[i].color = color.toRgbString()
     }
@@ -199,4 +219,34 @@ $(lineColorElement).spectrum({
   change: (color) => {
     lineColor = color.toRgbString()
   },
+})
+
+particlesElement.addEventListener('change', (e) => {
+  numberOfCircles = Number(e.target.value)
+  setup()
+})
+
+distanceElement.addEventListener('change', (e) => {
+  maxDistance = Number(e.target.value)
+  setup()
+})
+
+radiusElement.addEventListener('change', (e) => {
+  maxRadius = Number(e.target.value)
+  setup()
+})
+
+xAccelerationElement.addEventListener('change', (e) => {
+  acceleration = Number(e.target.value)
+  setup()
+})
+
+yAccelerationElement.addEventListener('change', (e) => {
+  gAcceleration = Number(e.target.value)
+  setup()
+})
+
+window.addEventListener('resize', (e) => {
+  setupWindow()
+  setup()
 })
